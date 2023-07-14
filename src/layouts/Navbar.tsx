@@ -11,9 +11,9 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#eff0ed]">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-[90%]">
         <div className="flex items-center justify-between py-2">
-          <div className="flex items-center">
+          <div className="flex items-center border">
             <Link to="/" className="text-white font-bold text-xl">
               <img className="h-10 md:h-16" src={logo} alt="logo" />
             </Link>
@@ -30,7 +30,7 @@ const Navbar = () => {
               to="/about"
               className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
             >
-             All Books
+              All Books
             </Link>
             <Link
               to="/login"

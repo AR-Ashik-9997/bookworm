@@ -1,17 +1,13 @@
 import React from "react";
-import logo from "@/assets/images/technet-logo-white.png";
-import { RiFacebookBoxFill, RiInstagramLine } from "react-icons/ri";
-export default function Footer() {
-  const date = new Date();
-  const year = date.getFullYear();
 
+const Footer = () => {
   return (
-    <footer className="bg-[#242630] text-secondary p-20">
-      <div>
-        <div>
-          <img className="h-10" src={logo} alt="Logo" />
-        </div>
+    <footer className="bg-gray-800 py-4 fixed bottom-0 w-full">
+      <div className="container mx-auto text-center text-white">
+        &copy; 2023 Book Catalog. All rights reserved.
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;
