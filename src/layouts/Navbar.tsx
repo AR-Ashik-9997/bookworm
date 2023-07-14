@@ -1,41 +1,110 @@
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Button } from "../components/ui/button";
 import logo from "../assets/images/bookWorm.png";
 
-export default function Navbar() {
+const Navbar = () => {
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <nav className="w-full h-16 fixed top backdrop-blur-lg z-10">
-      <div className="h-full w-full bg-white/60">
-        <div className="flex items-center justify-between w-full md:max-w-7xl h-full mx-auto ">
-          <div>
-            <img className="h-10 md:h-16" src={logo} alt="log" />
+    <nav className="bg-[#eff0ed]">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-2">
+          <div className="flex items-center">
+            <Link to="/" className="text-white font-bold text-xl">
+              <img className="h-10 md:h-16" src={logo} alt="logo" />
+            </Link>
           </div>
-          <div>
-            <ul className="flex items-center">
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/">Home</Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/#">All Books</Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/#">Login</Link>
-                </Button>
-              </li>
-              <li>
-                <Button variant="link" asChild>
-                  <Link to="/#">Sign-up</Link>
-                </Button>
-              </li>
-            </ul>
+
+          <div className="hidden md:flex md:items-center">
+            <Link
+              to="/"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+            >
+              Home
+            </Link>
+            <Link
+              to="/about"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+            >
+             All Books
+            </Link>
+            <Link
+              to="/login"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+            >
+              Sign-in
+            </Link>
+            <Link
+              to="/login"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+            >
+              Sign-up
+            </Link>
+          </div>
+
+          <div className="md:hidden">
+            <button
+              className="text-black focus:outline-none"
+              onClick={toggleMenu}
+            >
+              <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24">
+                {isMenuOpen ? (
+                  <path
+                    className="hidden"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"
+                  />
+                ) : (
+                  <path
+                    className="hamburger"
+                    fillRule="evenodd"
+                    clipRule="evenodd"
+                    d="M1 6h22v2H1V6zm0 5h22v2H1v-2zm0 5h22v2H1v-2z"
+                  />
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden">
+            <div className="mt-2 py-2 px-4">
+              <Link
+                to="/"
+                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+              >
+                Home
+              </Link>
+              <Link
+                to="/about"
+                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+              >
+                All Books
+              </Link>
+              <Link
+                to="/login"
+                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+              >
+                Sign-in
+              </Link>
+              <Link
+                to="/login"
+                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+              >
+                Sign-up
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
-}
+};
+
+export default Navbar;
