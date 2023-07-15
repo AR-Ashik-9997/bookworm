@@ -22,25 +22,25 @@ const Navbar = () => {
           <div className="hidden md:flex md:items-center">
             <Link
               to="/"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl md:text-base lg:text-xl"
             >
               Home
             </Link>
             <Link
               to="/about"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl md:text-base lg:text-xl"
             >
               All Books
             </Link>
             <Link
               to="/login"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl md:text-base lg:text-xl"
             >
               Sign-in
             </Link>
             <Link
               to="/login"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl"
+              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl md:text-base lg:text-xl"
             >
               Sign-up
             </Link>
