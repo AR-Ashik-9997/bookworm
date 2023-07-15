@@ -1,4 +1,5 @@
-import TopBanner from "@/components/TopBanner";
+
+import TopBanner from "@/components/Home/TopBanner";
 import React from "react";
 
 const Home = () => {
