@@ -6,7 +6,7 @@ interface CardBooksProps {
 const CardBooks: React.FC<CardBooksProps> = () => {
   return (
     <section>
-      <div className="bg-white rounded-lg shadow-lg p-6 border border-blue-700 w-full">
+      <div className="bg-white rounded-lg shadow-lg p-6 w-full">
         <img
           className="w-full h-48 object-cover rounded-lg mb-4"
           src="path/to/image1.jpg"

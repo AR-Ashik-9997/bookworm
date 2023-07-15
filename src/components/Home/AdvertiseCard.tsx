@@ -3,7 +3,7 @@ import readingBook from "../../assets/images/readingbook.png"
 
 const AdvertiseCard: React.FC = () => {
   return (
-    <section className="bg-gradient-to-r from-[#ebeef098] to-[#ffffff] py-16 lg:pt-48">
+    <section className="py-16 lg:pt-48">
       <div className="container mx-auto px-4 max-w-[90%]">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div>
