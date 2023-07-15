@@ -27,7 +27,7 @@ const Navbar = () => {
               Home
             </Link>
             <Link
-              to="/about"
+              to="/all-books"
               className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl md:text-base lg:text-xl"
             >
               All Books
