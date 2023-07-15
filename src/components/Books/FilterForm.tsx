@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const FilterForm: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
@@ -33,35 +33,58 @@ const FilterForm: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <label className="mb-2">Filter by:</label>
-      <div className="flex flex-col sm:flex-row">
-        <label className="mr-2">
-          <input
-            type="radio"
-            value="option1"
-            checked={selectedOption === 'option1'}
-            onChange={handleOptionChange}
-          />
-          Option 1
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="option2"
-            checked={selectedOption === 'option2'}
-            onChange={handleOptionChange}
-          />
-          Option 2
-        </label>
+    <section className="p-4">
+      <div>
+        <h1 className="mb-2 text-xl lg:text-base xl:text-xl">Filter by Genre</h1>
+        <div className="flex flex-col">
+          <label className="text-xl lg:text-base xl:text-xl">
+            <input
+              type="radio"
+              value="option1"
+              checked={selectedOption === "option1"}
+              onChange={handleOptionChange}
+              className="mr-2"
+            />
+            Option 1
+          </label>
+          <label className="text-xl lg:text-base xl:text-xl">
+            <input
+              type="radio"
+              value="option2"
+              checked={selectedOption === "option2"}
+              onChange={handleOptionChange}
+              className="mr-2"
+            />
+            Option 2
+          </label>
+        </div>
       </div>
-      <button
-        className="px-4 py-2 mt-4 bg-blue-500 text-white rounded-lg"
-        onClick={handleFilterSubmit}
-      >
-        Filter
-      </button>
-    </div>
+      <div className="mt-4">
+        <h1 className="mb-2 text-xl lg:text-base xl:text-xl">Filter by publication year</h1>
+        <div className="flex flex-col">
+          <label className="text-xl lg:text-base xl:text-xl">
+            <input
+              type="radio"
+              value="option1"
+              checked={selectedOption === "option1"}
+              onChange={handleOptionChange}
+              className="mr-2"
+            />
+            Option 1
+          </label>
+          <label className="text-xl lg:text-base xl:text-xl">
+            <input
+              type="radio"
+              value="option2"
+              checked={selectedOption === "option2"}
+              onChange={handleOptionChange}
+              className="mr-2"
+            />
+            Option 2
+          </label>
+        </div>
+      </div>
+    </section>
   );
 };
 
