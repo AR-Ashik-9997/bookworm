@@ -7,7 +7,7 @@ interface CardBooksProps {
 const CardBooks: React.FC<CardBooksProps> = () => {
   return (
     <section>
-      <Link to="/#">
+      <Link to="/book-details">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full">
           <img
             className="w-full h-48 object-cover rounded-lg mb-4"
