@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import CustomNavigationButton from "./CustomNavigationButton";
 import "swiper/css";
 
-const BestSellerCard = () => {
+const BestSellerCard: React.FC = () => {
   return (
     <section className="bg-white py-4">
       <div className="container mx-auto px-4 max-w-[90%]">

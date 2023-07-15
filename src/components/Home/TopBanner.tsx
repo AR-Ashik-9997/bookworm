@@ -1,6 +1,6 @@
 import React from "react";
 import books from "../../assets/images/books.png";
-const TopBanner = () => {
+const TopBanner: React.FC = () => {
   return (
     <>
       <section className="bg-[#EFF0ED]">

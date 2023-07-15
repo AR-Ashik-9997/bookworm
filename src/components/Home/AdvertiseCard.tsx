@@ -1,7 +1,7 @@
 import React from "react";
 import readingBook from "../../assets/images/readingbook.png"
 
-const AdvertiseCard = () => {
+const AdvertiseCard: React.FC = () => {
   return (
     <section className="bg-gradient-to-r from-[#ebeef098] to-[#ffffff] py-16 lg:pt-48">
       <div className="container mx-auto px-4 max-w-[90%]">

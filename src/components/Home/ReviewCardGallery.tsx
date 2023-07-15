@@ -28,7 +28,7 @@ const reviews: Review[] = [
     comment: "Very satisfied with my purchase. Thank you!",
   },
 ];
-const ReviewCard: React.FC<Review> = ({ name, rating, comment }) => {
+const ReviewCard: React.FC<Review> = ({ rating, comment }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg p-6">
       <div className="mt-2">
