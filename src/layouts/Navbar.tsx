@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
               Sign-in
             </Link>
             <Link
-              to="/login"
+              to="/signup"
               className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
             >
               Sign-up
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
                 Sign-in
               </Link>
               <Link
-                to="/login"
+                to="/signup"
                 className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
               >
                 Sign-up
