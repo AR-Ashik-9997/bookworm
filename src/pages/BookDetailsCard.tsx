@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable no-unsafe-optional-chaining */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -5,15 +7,38 @@
 import React from "react";
 import readingBook from "../assets/images/readingbook.png";
 import { useNavigate, useParams } from "react-router-dom";
-import { useSingleBookQuery } from "@/redux/feature/books/bookApi";
+import {
+  useDeleteBookMutation,
+  useSingleBookQuery,
+} from "@/redux/feature/books/bookApi";
 import { makeReadableDateTime } from "@/types/globalTypes";
+import Swal from "sweetalert2";
 
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
-  const navigate=useNavigate();
-  const { data, isLoading, error } = useSingleBookQuery(id);
-  const handleBookUpdate = (id:string) => {
-   navigate(`/update-book/${id}`);
+  const navigate = useNavigate();
+  const { data, isLoading, error } = useSingleBookQuery(id,{refetchOnMountOrArgChange: true,pollingInterval:1000});
+  const [deleteBook] = useDeleteBookMutation();
+  const handleBookUpdate = (id: string) => {
+    navigate(`/update-book/${id}`);
+  };
+  const handleDeleteBook = (id: string) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteBook(id).then(() => {
+          Swal.fire("Deleted!", "Your file has been deleted.", "success"),
+            navigate("/all-books");
+        });
+      }
+    });
   };
   return (
     <section className="py-16 lg:pt-32">
@@ -45,7 +70,10 @@ const BookDetailsCard: React.FC = () => {
               >
                 Edit Book
               </button>
-              <button className="px-4 py-2 rounded-xl text-white bg-red-600 active:scale-95 duration-200">
+              <button
+                onClick={() => handleDeleteBook(data?.data._id)}
+                className="px-4 py-2 rounded-xl text-white bg-red-600 active:scale-95 duration-200"
+              >
                 Delete Book
               </button>
             </div>

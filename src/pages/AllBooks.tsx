@@ -10,7 +10,7 @@ import React from "react";
 
 
 const AllBooks: React.FC = () => {
-  const {data}=useGetBooksQuery(undefined); 
+  const {data}=useGetBooksQuery(undefined,{refetchOnMountOrArgChange:true,pollingInterval:1000}); 
   return (
     <section className="py-16">
       <div className="container mx-auto px-4 max-w-[90%]">
