@@ -6,7 +6,7 @@ import "swiper/css";
 
 const BestSellerCard: React.FC = () => {
   return (
-    <section className="bg-white py-4">
+    <section className="py-4">
       <div className="container mx-auto px-4 max-w-[90%]">
         <div className="py-8">
           <h1 className="text-center text-4xl lg:text-5xl mb-4 2xl:mb-6">
@@ -80,8 +80,10 @@ const BestSellerCard: React.FC = () => {
               <h2 className="text-lg font-semibold">Card 4</h2>
               <p className="text-gray-500">Description 4</p>
             </div>
-          </SwiperSlide>          
-          <span className="xl:hidden"><CustomNavigationButton /></span>
+          </SwiperSlide>
+          <span className="xl:hidden">
+            <CustomNavigationButton />
+          </span>
         </Swiper>
       </div>
     </section>
