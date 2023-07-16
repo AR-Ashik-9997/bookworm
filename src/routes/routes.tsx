@@ -18,16 +18,8 @@ const routes = createBrowserRouter([
       },
       { path: "/all-books", element: <AllBooks /> },
       {
-        path: "/book-details",
-        element: (
-          <BookDetailsCard
-            title={""}
-            author={""}
-            genre={""}
-            publicationDate={""}
-            reviews={[]}
-          />
-        ),
+        path: "/book-details/:id",
+        element: <BookDetailsCard/>,
       },
       { path: "/addbook", element: <AddNewBookPage /> },
     ],

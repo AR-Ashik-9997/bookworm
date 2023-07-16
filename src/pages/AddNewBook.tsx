@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
+import { BookFormData } from '@/types/globalTypes';
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-type BookFormData = {
-  title: string;
-  author: string;
-  genre: string;
-  year: number;
-  reviews: string;
-};
 
 const AddNewBookPage: React.FC = () => {
   const {

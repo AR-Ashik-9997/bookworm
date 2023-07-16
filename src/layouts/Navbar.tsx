@@ -88,13 +88,13 @@ const Navbar: React.FC = () => {
                 Home
               </Link>
               <Link
-                to="/addbook"
+                to="/all-books"
                 className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
               >
                 All Books
               </Link>
               <Link
-                to="/all-books"
+                to="/addbook"
                 className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
               >
                 Add New Book
