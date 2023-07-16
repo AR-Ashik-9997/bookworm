@@ -6,7 +6,7 @@ interface IProps {
 }
 export default function CardBooks({ book }: IProps) {
   return (
-    <section>
+    <section className="min-h-screen">
       <Link to={`/book-details/${book._id}`}>
         <div className="bg-white rounded-lg shadow-lg p-6 w-full">
           <img

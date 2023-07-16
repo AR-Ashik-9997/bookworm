@@ -10,8 +10,7 @@ export type BookFormData = {
   title: string;
   author: string;
   genre: string;
-  year: number;
-  reviews: string;
+  publicationDate: string;  
 };
 
 export const makeReadableDateTime = (date: string): string => {

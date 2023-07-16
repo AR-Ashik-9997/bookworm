@@ -1,41 +1,41 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { usePostBooksMutation } from "@/redux/feature/books/bookApi";
-import { BookFormData } from "@/types/globalTypes";
+import {
+  useGetBooksQuery,
+  useSingleBookQuery,
+  useUpdateBookMutation,
+} from "@/redux/feature/books/bookApi";
+import { BookFormData, makeReadableDateTime } from "@/types/globalTypes";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useParams } from "react-router-dom";
 
-const AddNewBookPage: React.FC = () => {
+const UpdateBookPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },reset
+    formState: { errors },
+    reset,
   } = useForm<BookFormData>();
-  const [postBook] = usePostBooksMutation();
-
+  const { id } = useParams();  
+  const { data, isLoading } = useSingleBookQuery(id); 
+  const [updateBook] = useUpdateBookMutation();
   const onSubmit: SubmitHandler<BookFormData> = (data) => {
-    const { title, author, genre, publicationDate } = data;
-    const options = {
-      data: {
-        title: title,
-        author: author,
-        genre: genre,
-        publicationDate: publicationDate,
-        user: "64b3c2ed9ecf17c635f2ce7b",
-      },
-    };
-    postBook(options);  
+    updateBook(data);
     reset();
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center  sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900">
-          Add New Book
+          Update Book
         </h2>
       </div>
 
@@ -56,6 +56,7 @@ const AddNewBookPage: React.FC = () => {
                 className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border ${
                   errors?.title && "input-error"
                 }`}
+                defaultValue={data?.data.title}
                 {...register("title", { required: "Title is required" })}
               />
               {errors.title && (
@@ -79,7 +80,7 @@ const AddNewBookPage: React.FC = () => {
                 className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border ${
                   errors.author && "input-error"
                 }`}
-                {...register("author", { required: "Author is required" })}
+                defaultValue={data?.data.author}{...register("author", { required: "Author is required" })}
               />
               {errors.author && (
                 <p className="text-red-500 text-sm mt-1">
@@ -102,7 +103,7 @@ const AddNewBookPage: React.FC = () => {
                 className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border ${
                   errors.genre && "input-error"
                 }`}
-                {...register("genre", { required: "Genre is required" })}
+                defaultValue={data?.data.genre}{...register("genre", { required: "Genre is required" })}
               />
               {errors.genre && (
                 <p className="text-red-500 text-sm mt-1">
@@ -120,7 +121,8 @@ const AddNewBookPage: React.FC = () => {
               </label>
               <input
                 type="date"
-                id="publicationDate"
+                id="publicationDate"  
+                defaultValue={data?.data.publicationDate}             
                 className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border ${
                   errors.publicationDate && "input-error"
                 }`}
@@ -149,4 +151,4 @@ const AddNewBookPage: React.FC = () => {
   );
 };
 
-export default AddNewBookPage;
+export default UpdateBookPage;
