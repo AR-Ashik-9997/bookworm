@@ -4,6 +4,7 @@ interface Review {
   name: string;
   rating: number;
   comment: string;
+  image?: string;
 }
 
 const reviews: Review[] = [
@@ -11,26 +12,30 @@ const reviews: Review[] = [
     name: "John Doe",
     rating: 4,
     comment: "Great product! Highly recommended.",
+    image: "https://www.playwire.com/hubfs/Scott%20headshot.png",
+  },  
+  {
+    name: "Monica E. Wolfe",
+    rating: 3.5,
+    comment: "Decent quality, but could be better.",
+    image:"https://www.playwire.com/hubfs/Stacy-headshot.png"
   },
   {
     name: "Jane Smith",
     rating: 5,
     comment: "Excellent service. Will definitely buy again.",
-  },
-  {
-    name: "Michael Johnson",
-    rating: 3.5,
-    comment: "Decent quality, but could be better.",
+    image:"https://www.playwire.com/hubfs/Jayson-headshot.png"
   },
   {
     name: "Emily Davis",
     rating: 4.5,
     comment: "Very satisfied with my purchase. Thank you!",
+    image:"https://www.playwire.com/hubfs/Stacy-headshot.png"
   },
 ];
-const ReviewCard: React.FC<Review> = ({ rating, comment }) => {
+const ReviewCard: React.FC<Review> = ({ rating, comment, name,image }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="bg-white rounded-xl shadow-lg p-6">
       <div className="mt-2">
         <span className="text-yellow-500 flex gap-2">
           {Array.from({ length: Math.floor(rating) }, (_, index) => (
@@ -47,8 +52,12 @@ const ReviewCard: React.FC<Review> = ({ rating, comment }) => {
       </div>
       <p className="text-gray-700 pt-6">{comment}</p>
       <div className="flex items-center pt-6">
-        <img className="w-12 h-12 rounded-full mr-4" src="" alt="" />
-        <h3 className="text-lg font-bold">dcdcdc</h3>
+        <img
+          className="w-16 h-16 rounded-full mr-4"
+          src={image}
+          alt=""
+        />
+        <h3 className="text-lg font-bold">{name}</h3>
       </div>
     </div>
   );

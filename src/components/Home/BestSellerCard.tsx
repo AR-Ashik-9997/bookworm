@@ -3,7 +3,25 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CustomNavigationButton from "./CustomNavigationButton";
 import "swiper/css";
+import book_2 from "../../assets/images/book_2.png";
+import firstbook from "../../assets/images/firstbook.png";
+import lastbook from "../../assets/images/lastbook.png";
+import thirdbook from "../../assets/images/thirdbook.png";
 
+const images = [
+  {
+    image: book_2,
+  },
+  {
+    image: firstbook,
+  },
+  {
+    image: lastbook,
+  },
+  {
+    image: thirdbook,
+  },
+];
 const BestSellerCard: React.FC = () => {
   return (
     <section className="py-4">
@@ -37,50 +55,18 @@ const BestSellerCard: React.FC = () => {
           }}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <img
-                className="w-full h-48 object-cover rounded-lg mb-4"
-                src="path/to/image1.jpg"
-                alt="Card Image"
-              />
-              <h2 className="text-lg font-semibold">Card 1</h2>
-              <p className="text-gray-500">Description 1</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <img
-                className="w-full h-48 object-cover rounded-lg mb-4"
-                src="path/to/image2.jpg"
-                alt="Card Image"
-              />
-              <h2 className="text-lg font-semibold">Card 2</h2>
-              <p className="text-gray-500">Description 2</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <img
-                className="w-full h-48 object-cover rounded-lg mb-4"
-                src="path/to/image3.jpg"
-                alt="Card Image"
-              />
-              <h2 className="text-lg font-semibold">Card 3</h2>
-              <p className="text-gray-500">Description 3</p>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="bg-white rounded-lg shadow-lg p-6">
-              <img
-                className="w-full h-48 object-cover rounded-lg mb-4"
-                src="path/to/image4.jpg"
-                alt="Card Image"
-              />
-              <h2 className="text-lg font-semibold">Card 4</h2>
-              <p className="text-gray-500">Description 4</p>
-            </div>
-          </SwiperSlide>
+          {images.map((item, i: number) => (
+            <SwiperSlide>
+              <div className="rounded-lg p-6" key={i}>
+                <img
+                  className="w-full object-cover rounded-xl mb-4 "
+                  src={item.image}
+                  alt="Card Image"
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+
           <span className="xl:hidden">
             <CustomNavigationButton />
           </span>
