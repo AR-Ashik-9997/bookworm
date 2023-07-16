@@ -13,11 +13,15 @@ import {
 } from "@/redux/feature/books/bookApi";
 import { makeReadableDateTime } from "@/types/globalTypes";
 import Swal from "sweetalert2";
+import dummy_book from "../assets/images/dummy_books.png";
 
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data, isLoading, error } = useSingleBookQuery(id,{refetchOnMountOrArgChange: true,pollingInterval:1000});
+  const { data, isLoading, error } = useSingleBookQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 1000,
+  });
   const [deleteBook] = useDeleteBookMutation();
   const handleBookUpdate = (id: string) => {
     navigate(`/update-book/${id}`);
@@ -41,17 +45,19 @@ const BookDetailsCard: React.FC = () => {
     });
   };
   return (
-    <section className="py-16 lg:pt-32">
-      <div className="container mx-auto px-4 max-w-[90%]">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div>
-            <img
-              className=" w-3/4 h-full mx-auto mr-4"
-              src={readingBook}
-              alt="Card"
-            />
+    <section className="min-h-screen py-16">
+      <div className="container px-4 mx-auto w-full md:max-w-[80%] 2xl:max-w-[50%]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl shadow-lg items-center">
+          <div className="w-full md:w-4/5 lg:w-full">
+            <div>
+              <img
+                className="mx-auto rounded-xl mr-4 mt-4 lg:mt-0"
+                src={dummy_book}
+                alt="Card"
+              />
+            </div>
           </div>
-          <div className="bg-white rounded-xl shadow-lg p-4 w-3/4">
+          <div className="p-4 md:h-64 lg:h-4/5 md:order-2 lg:order-none text-center lg:text-start">
             <h2 className="text-2xl font-bold mb-2">{data?.data.title}</h2>
             <p className="text-lg font-medium text-gray-600 mb-2">
               Author:{data?.data.author}
@@ -63,7 +69,7 @@ const BookDetailsCard: React.FC = () => {
               Publication Date:{" "}
               {makeReadableDateTime(data?.data.publicationDate)}
             </p>
-            <div className="flex justify-center items-center gap-4 h-96">
+            <div className="flex justify-center items-center gap-4 pt-4 lg:pt-0 lg:h-96">
               <button
                 onClick={() => handleBookUpdate(data?.data._id)}
                 className="px-4 py-2 rounded-xl text-white bg-teal-600 active:scale-95 duration-200"
