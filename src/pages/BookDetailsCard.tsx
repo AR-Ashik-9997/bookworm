@@ -5,7 +5,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
-import readingBook from "../assets/images/readingbook.png";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   useDeleteBookMutation,

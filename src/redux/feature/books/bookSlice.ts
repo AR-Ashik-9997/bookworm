@@ -1,14 +1,19 @@
+import { IBook } from './../../../types/globalTypes';
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface IBook {
+interface IBooks {
   genre: string;
   publicationYear: string;
+  searchTerm: string;
+  searchData: IBook[];
 }
 
-const initialState: IBook = {
+const initialState: IBooks = {
   genre: "",
   publicationYear: "",
+  searchTerm: "",
+  searchData:[]
 };
 
 const bookSlice = createSlice({
@@ -21,9 +26,16 @@ const bookSlice = createSlice({
     setpublicationYear: (state, action: PayloadAction<string>) => {
       state.publicationYear = action.payload;
     },
+    setsearchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload;
+    },
+    setsearchData: (state, action: PayloadAction<IBook[]>) => {
+      state.searchData = action.payload;
+    },
   },
 });
 
-export const { setGenre, setpublicationYear } = bookSlice.actions;
+export const { setGenre, setpublicationYear, setsearchTerm, setsearchData } =
+  bookSlice.actions;
 
 export default bookSlice.reducer;

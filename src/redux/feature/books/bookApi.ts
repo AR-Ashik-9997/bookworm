@@ -5,14 +5,6 @@ import { IBook } from "@/types/globalTypes";
 
 const bookApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getBooks: builder.query({
-      query: () => "/books",
-      providesTags:["books"],
-    }),
-    singleBook: builder.query({
-      query: (id) => `/books/${id}`,
-      providesTags:["books"],
-    }),
     postBooks: builder.mutation({
       query: ({ data }) => ({
         url: "/books",
@@ -20,6 +12,18 @@ const bookApi = api.injectEndpoints({
         body: data,
       }),
       invalidatesTags: ["books"],
+    }),
+    getBooks: builder.query({
+      query: (searchTerm) => `/books/?searchTerm=${searchTerm}`,
+      providesTags: ["books"],
+    }),
+    searchBooks: builder.query({
+      query: (searchTerm) => `/books/?searchTerm=${searchTerm}`,
+      providesTags: ["books"],
+    }),
+    singleBook: builder.query({
+      query: (id) => `/books/${id}`,
+      providesTags: ["books"],
     }),
     updateBook: builder.mutation<IBook, Partial<IBook>>({
       query: ({ _id, ...data }) => ({
@@ -35,6 +39,7 @@ const bookApi = api.injectEndpoints({
       }),
       invalidatesTags: ["books"],
     }),
+
     // getComment: builder.query({
     //   query: (id) => `/comment/${id}`,
     //   providesTags: ['comments'],
@@ -45,6 +50,7 @@ const bookApi = api.injectEndpoints({
 export const {
   useGetBooksQuery,
   useSingleBookQuery,
+  useSearchBooksQuery,
   usePostBooksMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,
