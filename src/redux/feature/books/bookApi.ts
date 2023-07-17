@@ -17,10 +17,6 @@ const bookApi = api.injectEndpoints({
       query: (searchTerm) => `/books/?searchTerm=${searchTerm}`,
       providesTags: ["books"],
     }),
-    searchBooks: builder.query({
-      query: (searchTerm) => `/books/?searchTerm=${searchTerm}`,
-      providesTags: ["books"],
-    }),
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
       providesTags: ["books"],
@@ -50,7 +46,6 @@ const bookApi = api.injectEndpoints({
 export const {
   useGetBooksQuery,
   useSingleBookQuery,
-  useSearchBooksQuery,
   usePostBooksMutation,
   useUpdateBookMutation,
   useDeleteBookMutation,

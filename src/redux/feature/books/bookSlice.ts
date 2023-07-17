@@ -1,4 +1,3 @@
-import { IBook } from './../../../types/globalTypes';
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -6,14 +5,12 @@ interface IBooks {
   genre: string;
   publicationYear: string;
   searchTerm: string;
-  searchData: IBook[];
 }
 
 const initialState: IBooks = {
   genre: "",
   publicationYear: "",
   searchTerm: "",
-  searchData:[]
 };
 
 const bookSlice = createSlice({
@@ -29,13 +26,10 @@ const bookSlice = createSlice({
     setsearchTerm: (state, action: PayloadAction<string>) => {
       state.searchTerm = action.payload;
     },
-    setsearchData: (state, action: PayloadAction<IBook[]>) => {
-      state.searchData = action.payload;
-    },
   },
 });
 
-export const { setGenre, setpublicationYear, setsearchTerm, setsearchData } =
+export const { setGenre, setpublicationYear, setsearchTerm } =
   bookSlice.actions;
 
 export default bookSlice.reducer;
