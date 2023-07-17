@@ -31,7 +31,7 @@ const SearchBar: React.FC = () => {
   //   };
 
   return (
-    <div className="flex items-center lg:flex-col xl:flex-row gap-2 border p-4">
+    <div className="flex items-center lg:flex-col xl:flex-row gap-2 p-4">
       <input
         id="searchInput"
         type="text"

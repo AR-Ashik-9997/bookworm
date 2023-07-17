@@ -4,13 +4,15 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: string;
+  publicationYear:string; 
   user: string;
 }
 export type BookFormData = {
   title: string;
   author: string;
   genre: string;
-  publicationDate: string;  
+  publicationDate: string; 
+  publicationYear:string; 
 };
 
 export const makeReadableDateTime = (date: string): string => {

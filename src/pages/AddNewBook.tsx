@@ -12,7 +12,8 @@ const AddNewBookPage: React.FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },reset
+    formState: { errors },
+    reset,
   } = useForm<BookFormData>();
   const [postBook] = usePostBooksMutation();
 
@@ -24,10 +25,11 @@ const AddNewBookPage: React.FC = () => {
         author: author,
         genre: genre,
         publicationDate: publicationDate,
+        publicationYear: new Date(publicationDate).getFullYear().toString(),
         user: "64b3c2ed9ecf17c635f2ce7b",
       },
     };
-    postBook(options);  
+    postBook(options);
     reset();
   };
 
