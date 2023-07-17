@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import CardBooks from "@/components/Books/CardBooks";
 import { useGetBooksQuery } from "@/redux/feature/books/bookApi";
 import {
@@ -110,20 +109,7 @@ const AllBooks: React.FC = () => {
                 <CardBooks book={book} />
               ))}
             </div>
-          </div>
-          <iframe
-            height="300"            
-            title="404 Page"
-            src="https://codepen.io/sarazond/embed/jOKyjZ?default-tab=html%2Cresult"
-            frameBorder="no"
-            loading="lazy"           
-           
-          >
-            See the Pen{" "}
-            <a href="https://codepen.io/sarazond/pen/jOKyjZ">404 Page</a> by
-            sarazond (<a href="https://codepen.io/sarazond">@sarazond</a>) on{" "}
-            <a href="https://codepen.io">CodePen</a>.
-          </iframe>
+          </div>          
           
         </div>
       </div>
