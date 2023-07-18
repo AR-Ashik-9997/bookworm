@@ -102,15 +102,23 @@ const AllBooks: React.FC = () => {
               </div>
             </div>
           </div>
-
-          <div className="col-span-3 w-full mt-6 lg:mt-0">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
-              {filteredBooks.map((book: IBook) => (
-                <CardBooks book={book} />
-              ))}
+          {data?.data.length > 0 ? (
+            <div className="col-span-3 w-full mt-6 lg:mt-0">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
+                {filteredBooks.map((book: IBook) => (
+                  <CardBooks book={book} />
+                ))}
+              </div>
             </div>
-          </div>          
-          
+          ) : (
+            <div className="col-span-3 w-full mt-6 lg:mt-0 ">
+              <div className="flex items-center justify-center h-96">
+                <h1 className="text-center font-semibold text-3xl">
+                  Data Not Found!
+                </h1>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

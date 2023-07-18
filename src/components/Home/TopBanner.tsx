@@ -9,23 +9,23 @@ const TopBanner: React.FC = () => {
         <div className="container mx-auto px-4 max-w-[90%] py-24">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <div className="text-center md:text-start">
-              <h1 className="text-4xl  lg:text-5xl xl:text-7xl 2xl:text-8xl mb-4 2xl:mb-6">
+              <h1 className="text-4xl  lg:text-5xl xl:text-7xl 2xl:text-7xl mb-4 2xl:mb-6">
                 Buy and sell your
               </h1>
-              <h1 className="text-4xl lg:text-5xl xl:text-7xl 2xl:text-8xl mb-4 2xl:mb-6 ">
+              <h1 className="text-4xl lg:text-5xl xl:text-7xl 2xl:text-7xl mb-4 2xl:mb-6 ">
                 textbooks for the
               </h1>
-              <h1 className="text-4xl lg:text-5xl xl:text-7xl 2xl:text-8xl mb-4 2xl:mb-6">
+              <h1 className="text-4xl lg:text-5xl xl:text-7xl 2xl:text-7xl mb-4 2xl:mb-6">
                 best price
               </h1>
-              <p className="text-xl 2xl:text-3xl md:text-base md:w-3/4 text-justify mb-4 tex-center md:text-start">
+              <p className="text-xl 2xl:text-2xl md:text-base md:w-3/4 text-justify mb-4 tex-center md:text-start mt-12">
                 you can develop by reading books it is said to be wise beacause
                 by reading books you can only.
               </p>
-              <div className="flex justify-end w-3/4 mt-8">
+              <div className="flex justify-end w-3/4 mt-12">
                 <button
                   onClick={() => navigate("/all-books")}
-                  className="text-xl 2xl:text-3xl md:text-base text-justify mb-4 tex-center md:text-start px-4 py-3 hover:bg-gradient-to-r hover:from-cyan-500 active:scale-95 duration-200 hover:via-teal-500 hover:to-green-300 bg-teal-500 font-medium rounded-xl text-white "
+                  className="text-xl 2xl:text-2xl md:text-base text-justify mb-4 tex-center md:text-start px-4 py-3 hover:bg-gradient-to-r hover:from-cyan-500 active:scale-95 duration-200 hover:via-teal-500 hover:to-green-300 bg-teal-500 font-medium rounded-xl text-white "
                 >
                   Explore More
                 </button>
