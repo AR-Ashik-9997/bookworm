@@ -13,14 +13,13 @@ import {
 import { makeReadableDateTime } from "@/types/globalTypes";
 import Swal from "sweetalert2";
 import dummy_book from "../assets/images/dummy_books.png";
-import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import CardDetailsSkeliton from "@/components/Loading/CardDetailsSkeliton";
 
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data} = useSingleBookQuery(id,{refetchOnMountOrArgChange: true});
+  const { data } = useSingleBookQuery(id, { refetchOnMountOrArgChange: true });
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [deleteBook] = useDeleteBookMutation();
   const handleBookUpdate = (id: string) => {
@@ -73,7 +72,7 @@ const BookDetailsCard: React.FC = () => {
               <div className="p-4 md:h-64 lg:h-4/5 md:order-2 lg:order-none text-center lg:text-start">
                 <h2 className="text-2xl font-bold mb-2">{data?.data.title}</h2>
                 <p className="text-lg font-medium text-gray-600 mb-2">
-                  Author:{data?.data.author || <Skeleton />}
+                  Author:{data?.data.author}
                 </p>
                 <p className="text-lg font-medium text-gray-600 mb-2">
                   Genre:{data?.data.genre}

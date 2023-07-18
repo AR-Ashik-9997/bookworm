@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
@@ -7,11 +8,13 @@ import {
   useUpdateBookMutation,
 } from "@/redux/feature/books/bookApi";
 import { IBook } from "@/types/globalTypes";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const UpdateBookPage: React.FC = () => {
   const { id } = useParams();
-  const { data, isLoading } = useSingleBookQuery(id);
+  const navigate = useNavigate();
+  const { data } = useSingleBookQuery(id);
   const [bookData, setBookData] = useState<Partial<IBook>>({
     title: data?.data.title,
     author: data?.data.author,
@@ -21,14 +24,18 @@ const UpdateBookPage: React.FC = () => {
   const [updateBook] = useUpdateBookMutation();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();  
+    e.preventDefault();
     try {
       await updateBook({
         _id: id,
         ...bookData,
       })
         .unwrap()
-        .then((res) => console.log(res));
+        .then((res) => {
+          Swal.fire("This book is successfully updated!", "You clicked the button!", "success").then(
+            () => navigate("/all-books")
+          );
+        });
     } catch (error) {
       console.error("Error updating book:", error);
     }
@@ -40,10 +47,6 @@ const UpdateBookPage: React.FC = () => {
       [e.target.id]: e.target.value,
     });
   };
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:px-6 lg:px-8">
@@ -85,7 +88,7 @@ const UpdateBookPage: React.FC = () => {
                 id="author"
                 placeholder="Enter the book author"
                 className="rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-                value={bookData.author||data?.data.author}
+                value={bookData.author || data?.data.author}
                 onChange={handleInputChange}
               />
             </div>
@@ -102,7 +105,7 @@ const UpdateBookPage: React.FC = () => {
                 id="genre"
                 placeholder="Enter the book genre"
                 className="rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-                value={bookData.genre||data?.data.genre}
+                value={bookData.genre || data?.data.genre}
                 onChange={handleInputChange}
               />
             </div>
@@ -118,7 +121,7 @@ const UpdateBookPage: React.FC = () => {
                 type="date"
                 id="publicationDate"
                 className="rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-                value={bookData.publicationDate||data?.data.publicationDate}
+                value={bookData.publicationDate || data?.data.publicationDate}
                 onChange={handleInputChange}
               />
             </div>

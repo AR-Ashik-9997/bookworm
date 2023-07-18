@@ -7,6 +7,8 @@ import { usePostBooksMutation } from "@/redux/feature/books/bookApi";
 import { BookFormData } from "@/types/globalTypes";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const AddNewBookPage: React.FC = () => {
   const {
@@ -16,6 +18,7 @@ const AddNewBookPage: React.FC = () => {
     reset,
   } = useForm<BookFormData>();
   const [postBook] = usePostBooksMutation();
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<BookFormData> = (data) => {
     const { title, author, genre, publicationDate } = data;
@@ -29,8 +32,16 @@ const AddNewBookPage: React.FC = () => {
         user: "64b3c2ed9ecf17c635f2ce7b",
       },
     };
-    postBook(options);
-    reset();
+    postBook(options).then(() => {
+      Swal.fire(
+        "This book is successfully Added!",
+        "You clicked the button!",
+        "success"
+      ).then(() => {
+        reset();
+        navigate("/all-books");
+      });
+    });
   };
 
   return (

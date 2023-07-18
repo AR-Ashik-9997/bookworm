@@ -4,15 +4,15 @@ export interface IBook {
   author: string;
   genre: string;
   publicationDate: string;
-  publicationYear:string; 
+  publicationYear: string;
   user: string;
 }
 export type BookFormData = {
   title: string;
   author: string;
   genre: string;
-  publicationDate: string; 
-  publicationYear:string; 
+  publicationDate: string;
+  publicationYear: string;
 };
 
 export const makeReadableDateTime = (date: string): string => {
@@ -22,4 +22,11 @@ export const makeReadableDateTime = (date: string): string => {
     day: "numeric",
   });
   return readableTime;
+};
+
+export interface IProps {
+  book: IBook;
+}
+export type ISkelitonCard = {
+  cards: number;
 };

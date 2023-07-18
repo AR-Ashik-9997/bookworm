@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import CardBooks from "@/components/Books/CardBooks";
+import AllBookCardSkeliton from "@/components/Loading/AllBookCardSkeliton";
 import { useGetBooksQuery } from "@/redux/feature/books/bookApi";
 import {
   setGenre,
@@ -10,21 +11,23 @@ import {
 } from "@/redux/feature/books/bookSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
 import { IBook } from "@/types/globalTypes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AllBooks: React.FC = () => {
   const { genre, publicationYear, searchTerm } = useAppSelector(
     (state) => state.book
   );
-  const { data } = useGetBooksQuery(searchTerm, {
+  const { data, isLoading } = useGetBooksQuery(searchTerm, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 1000,
   });
   const dispatch = useAppDispatch();
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
+    dispatch(setGenre(""));
     dispatch(setsearchTerm(search));
   };
+  const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedGenre = e.target.value;
@@ -57,6 +60,16 @@ const AllBooks: React.FC = () => {
         publicationYear === "" ||
         book.publicationYear === publicationYear
     ) || [];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [filteredBooks.length]);
   return (
     <section className="min-h-screen py-16">
       <div className="container mx-auto px-4 max-w-[90%]">
@@ -106,7 +119,15 @@ const AllBooks: React.FC = () => {
             <div className="col-span-3 w-full mt-6 lg:mt-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
                 {filteredBooks.map((book: IBook) => (
-                  <CardBooks book={book} />
+                  <>
+                    {showSkeleton ? (
+                      <AllBookCardSkeliton cards={filteredBooks.length} />
+                    ) : (
+                      <CardBooks book={book} />
+                    )}
+
+                    <CardBooks book={book} />
+                  </>
                 ))}
               </div>
             </div>

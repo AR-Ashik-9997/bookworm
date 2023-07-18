@@ -1,10 +1,7 @@
-import { IBook, makeReadableDateTime } from "@/types/globalTypes";
+import { IBook, IProps, makeReadableDateTime } from "@/types/globalTypes";
 import { Link } from "react-router-dom";
 import dummy_book from "../../assets/images/dummy_books.png";
 
-interface IProps {
-  book: IBook;
-}
 export default function CardBooks({ book }: IProps) {
   return (
     <section>
