@@ -1,42 +1,64 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FcGoogle } from "react-icons/fc";
 import signup from "../assets/images/signup.png";
-
-type FormData = {
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone_number: string;
-  password: string;
-  confirm_password: string;
-};
+import { FormData } from "@/types/globalTypes";
+import { useCreateUserMutation } from "@/redux/feature/users/userApi";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
+import { SerializedError } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     getValues,
   } = useForm<FormData>();
-
+  const [error, setError] = useState<string>();
+  const [createUser] = useCreateUserMutation();
+  const navigate = useNavigate();
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data); // You can handle form submission here
+    const { username, email, password } = data;
+    const options = {
+      data: {
+        username: username,
+        email: email,
+        password: password,
+        role: "user",
+      },
+    };
+    createUser(options).then((res) => {
+      if ("error" in res) {
+        const error = res.error as FetchBaseQueryError | SerializedError;
+        setError(error.data.message);
+      } else {
+        Swal.fire(
+          `${res.data.message}`,
+          "You clicked the button!",
+          "success"
+        ).then(() => {
+          reset();
+          navigate("#");
+        });
+      }
+    });
   };
 
   return (
     <section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="flex items-center justify-center">
-          <img
-            className=" w-full p-4"
-            src={signup}
-            alt="Card"
-          />
+          <img className=" w-full p-4" src={signup} alt="Card" />
         </div>
         <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:px-6 lg:px-8 p-4">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -44,41 +66,23 @@ const SignUpForm: React.FC = () => {
               Sign Up
             </h2>
           </div>
-          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-            <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md rounded-xl shadow-lg bg-white">
+            <div className="py-8 px-4 sm:rounded-lg sm:px-10">
               <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <input
                     type="text"
-                    placeholder="First Name"
+                    placeholder="Username"
                     className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-cyan-700 bg-white w-full focus:outline-none focus:border-cyan-700 focus:ring-0 border ${
-                      errors.first_name && "input-error"
+                      errors.username && "input-error"
                     }`}
-                    {...register("first_name", {
-                      required: "First name is required",
+                    {...register("username", {
+                      required: "User name is required",
                     })}
                   />
-                  {errors.first_name && (
+                  {errors.username && (
                     <p className="text-red-500 text-sm mt-1">
-                      {errors.first_name.message}
-                    </p>
-                  )}
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Last Name"
-                    className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-cyan-700 bg-white w-full focus:outline-none focus:border-cyan-700 focus:ring-0 border ${
-                      errors.last_name && "input-error"
-                    }`}
-                    {...register("last_name", {
-                      required: "Last name is required",
-                    })}
-                  />
-                  {errors.last_name && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.last_name.message}
+                      {errors.username.message}
                     </p>
                   )}
                 </div>
@@ -103,30 +107,10 @@ const SignUpForm: React.FC = () => {
                       {errors.email.message}
                     </p>
                   )}
-                </div>
-
-                <div>
-                  <input
-                    type="tel"
-                    placeholder="Phone Number"
-                    className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-cyan-700 bg-white w-full focus:outline-none focus:border-cyan-700 focus:ring-0 border ${
-                      errors.phone_number && "input-error"
-                    }`}
-                    {...register("phone_number", {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^[0-9]{10}$/,
-                        message: "Invalid phone number",
-                      },
-                    })}
-                  />
-                  {errors.phone_number && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.phone_number.message}
-                    </p>
+                  {error !== "" && (
+                    <p className="text-red-500 text-sm mt-1">{error}</p>
                   )}
                 </div>
-
                 <div>
                   <input
                     type="password"
@@ -165,27 +149,12 @@ const SignUpForm: React.FC = () => {
                     </p>
                   )}
                 </div>
-
                 <div>
                   <button
                     type="submit"
                     className="w-full flex justify-center py-2 px-4 border border-transparent rounded-xl shadow-sm text-xl font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
                   >
                     Register
-                  </button>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <span className="text-sm text-gray-600">
-                    Or continue with
-                  </span>
-                  <button
-                    type="button"
-                    className="ml-2 bg-white py-2 px-4 text-sm font-medium text-gray-700 hover:bg-gray-50 active:scale-95 duration-200"
-                  >
-                    <span className="text-4xl">
-                      <FcGoogle />
-                    </span>
                   </button>
                 </div>
               </form>

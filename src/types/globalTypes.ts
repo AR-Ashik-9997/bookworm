@@ -30,3 +30,10 @@ export interface IProps {
 export type ISkelitonCard = {
   cards: number;
 };
+
+export type FormData = {
+  username: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+};
