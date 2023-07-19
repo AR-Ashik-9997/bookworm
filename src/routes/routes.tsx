@@ -8,6 +8,7 @@ import AddNewBookPage from "@/pages/AddNewBook";
 import UpdateBookPage from "@/pages/UpdateBook";
 import LoginForm from "@/components/LoginForm/Login";
 import SignUpForm from "@/components/LoginForm/SignUp";
+import PrivateRoute from "./privateRoute";
 
 const routes = createBrowserRouter([
   {
@@ -21,13 +22,28 @@ const routes = createBrowserRouter([
       { path: "/all-books", element: <AllBooks /> },
       {
         path: "/book-details/:id",
-        element: <BookDetailsCard />,
+        element: (
+          <PrivateRoute>
+            <BookDetailsCard />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-book/:id",
-        element: <UpdateBookPage />,
+        element: (
+          <PrivateRoute>
+            <UpdateBookPage />
+          </PrivateRoute>
+        ),
       },
-      { path: "/addbook", element: <AddNewBookPage /> },
+      {
+        path: "/addbook",
+        element: (
+          <PrivateRoute>
+            <AddNewBookPage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
