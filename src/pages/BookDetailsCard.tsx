@@ -56,7 +56,6 @@ const BookDetailsCard: React.FC = () => {
       clearTimeout(timer);
     };
   }, []);
-
   return (
     <section className="min-h-screen py-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 2xl:w-4/5 mx-auto p-4">
@@ -117,7 +116,7 @@ const BookDetailsCard: React.FC = () => {
           </div>
         </div>
         <div>
-          <ReviewBooks />
+          <ReviewBooks id={data?.data._id} />
         </div>
       </div>
     </section>

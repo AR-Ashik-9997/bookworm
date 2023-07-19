@@ -28,6 +28,9 @@ export const makeReadableDateTime = (date: string): string => {
 export interface IProps {
   book: IBook;
 }
+export interface IReviewProps {
+  id: string;
+}
 export type ISkelitonCard = {
   cards: number;
 };
