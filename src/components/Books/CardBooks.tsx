@@ -1,4 +1,4 @@
-import { IBook, IProps, makeReadableDateTime } from "@/types/globalTypes";
+import { IProps, makeReadableDateTime } from "@/types/globalTypes";
 import { Link } from "react-router-dom";
 import dummy_book from "../../assets/images/dummy_books.png";
 

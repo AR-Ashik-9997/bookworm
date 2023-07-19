@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 export default function CardDetailsSkeliton() {
   return (
-    <>
+    <React.Fragment>
       <div className="w-full md:w-4/5 lg:w-full p-4">
         <div>
           <Skeleton className="mx-auto h-96 rounded-xl mr-4 mt-4 lg:mt-0" />
@@ -15,6 +15,6 @@ export default function CardDetailsSkeliton() {
           <Skeleton count={2} />
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 }

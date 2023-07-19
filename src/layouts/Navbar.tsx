@@ -1,14 +1,22 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/bookWorm.png";
-
+import { useCheckAuth } from "@/redux/feature/users/userSlice";
 const Navbar: React.FC = () => {
   const [ixsenuOpen, setMenuOpen] = useState(false);
-
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setMenuOpen(!ixsenuOpen);
   };
-
+  const auth: object | null = JSON.parse(
+    localStorage.getItem("auth") || "null"
+  );
+  const isAuthenticated = useCheckAuth(auth);
+  const handleLogOut = () => {
+    localStorage.removeItem("auth");
+    navigate("/");
+  };
   return (
     <nav className="bg-[#eff0ed]">
       <div className="container mx-auto px-4 max-w-[90%]">
@@ -32,24 +40,38 @@ const Navbar: React.FC = () => {
             >
               All Books
             </Link>
-            <Link
-              to="/addbook"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
-            >
-              Add New Book
-            </Link>
-            <Link
-              to="/login"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
-            >
-              Sign-in
-            </Link>
-            <Link
-              to="/signup"
-              className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
-            >
-              Sign-up
-            </Link>
+            {isAuthenticated && (
+              <>
+                <Link
+                  to="/addbook"
+                  className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
+                >
+                  Add New Book
+                </Link>
+                <button
+                  onClick={handleLogOut}
+                  className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl "
+                >
+                  Logout
+                </button>
+              </>
+            )}
+            {!isAuthenticated && (
+              <React.Fragment>
+                <Link
+                  to="/login"
+                  className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
+                >
+                  Sign-in
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-black mx-4 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300 text-xl  "
+                >
+                  Sign-up
+                </Link>
+              </React.Fragment>
+            )}
           </div>
 
           <div className="lg:hidden">
@@ -93,24 +115,38 @@ const Navbar: React.FC = () => {
               >
                 All Books
               </Link>
-              <Link
-                to="/addbook"
-                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
-              >
-                Add New Book
-              </Link>
-              <Link
-                to="/login"
-                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
-              >
-                Sign-in
-              </Link>
-              <Link
-                to="/signup"
-                className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
-              >
-                Sign-up
-              </Link>
+              {isAuthenticated && (
+                <React.Fragment>
+                  <Link
+                    to="/addbook"
+                    className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+                  >
+                    Add New Book
+                  </Link>
+                  <button
+                    onClick={handleLogOut}
+                    className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+                  >
+                    Logout
+                  </button>
+                </React.Fragment>
+              )}
+              {!isAuthenticated && (
+                <React.Fragment>
+                  <Link
+                    to="/login"
+                    className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+                  >
+                    Sign-in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="block text-black mt-2 hover:text-white hover:bg-gray-700 px-2 py-1 rounded-lg transition duration-300"
+                  >
+                    Sign-up
+                  </Link>
+                </React.Fragment>
+              )}
             </div>
           </div>
         )}

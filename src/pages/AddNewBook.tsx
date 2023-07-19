@@ -25,7 +25,7 @@ const AddNewBookPage: React.FC = () => {
   const [postBook] = usePostBooksMutation();
   const navigate = useNavigate();
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
-
+  const auth=JSON.parse(localStorage.getItem('auth')||"null");
   const onSubmit: SubmitHandler<BookFormData> = (data) => {
     const { title, author, genre, publicationDate } = data;
     const options = {
@@ -35,7 +35,7 @@ const AddNewBookPage: React.FC = () => {
         genre: genre,
         publicationDate: publicationDate,
         publicationYear: new Date(publicationDate).getFullYear().toString(),
-        user: "64b3c2ed9ecf17c635f2ce7b",
+        user: auth?.userId,
       },
     };
     postBook(options).then(() => {
@@ -67,7 +67,7 @@ const AddNewBookPage: React.FC = () => {
           {showSkeleton ? (
             <CardDetailsSkeliton />
           ) : (
-            <>
+            <React.Fragment>
               <div className="w-full md:w-4/5 lg:w-full">
                 <div>
                   <img
@@ -77,7 +77,7 @@ const AddNewBookPage: React.FC = () => {
                   />
                 </div>
               </div>
-              <div className="p-4 md:order-2 lg:order-none">                
+              <div className="p-4 md:order-2 lg:order-none">
                 <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
                   <div>
                     <label
@@ -180,7 +180,7 @@ const AddNewBookPage: React.FC = () => {
                   </div>
                 </form>
               </div>
-            </>
+            </React.Fragment>
           )}
         </div>
       </div>

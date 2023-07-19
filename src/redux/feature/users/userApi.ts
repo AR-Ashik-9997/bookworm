@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { api } from "@/redux/api/apiSlice";
 
 const userApi = api.injectEndpoints({
@@ -9,9 +9,20 @@ const userApi = api.injectEndpoints({
         url: "/auth/signup",
         method: "POST",
         body: data,
-      }),      
+      }),
+      invalidatesTags: ["All"],
     }),
+    loginUser: builder.mutation({
+      query: ({ data }) => ({
+        url: "/auth/login",
+        method: "POST",
+        body: data,
+      }),
+    }),   
   }),
 });
 
-export const {useCreateUserMutation} = userApi;
+export const {
+  useCreateUserMutation,
+  useLoginUserMutation,  
+} = userApi;

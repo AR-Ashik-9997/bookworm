@@ -10,11 +10,12 @@ import {
   useDeleteBookMutation,
   useSingleBookQuery,
 } from "@/redux/feature/books/bookApi";
-import { makeReadableDateTime } from "@/types/globalTypes";
+import {makeReadableDateTime } from "@/types/globalTypes";
 import Swal from "sweetalert2";
 import dummy_book from "../assets/images/dummy_books.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import CardDetailsSkeliton from "@/components/Loading/CardDetailsSkeliton";
+import { useCheckAuth } from "@/redux/feature/users/userSlice";
 
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
@@ -22,6 +23,8 @@ const BookDetailsCard: React.FC = () => {
   const { data } = useSingleBookQuery(id, { refetchOnMountOrArgChange: true });
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [deleteBook] = useDeleteBookMutation();
+  const auth = JSON.parse(localStorage.getItem("auth") || "null");
+  const isAuthenticated = useCheckAuth(auth);
   const handleBookUpdate = (id: string) => {
     navigate(`/update-book/${id}`);
   };
@@ -52,15 +55,16 @@ const BookDetailsCard: React.FC = () => {
       clearTimeout(timer);
     };
   }, []);
+
   return (
     <section className="min-h-screen py-16">
-      <div className="container px-4 mx-auto w-full md:max-w-[80%] 2xl:max-w-[50%]">
+      <div className="container px-4 mx-auto w-full md:max-w-[80%] 2xl:max-w-[40%]">
         <div className="grid grid-cols-1 lg:grid-cols-2 bg-white rounded-xl shadow-lg items-center">
           {showSkeleton ? (
             <CardDetailsSkeliton />
           ) : (
-            <>
-              <div className="w-full md:w-4/5 lg:w-full">
+            <React.Fragment>
+              <div className="w-full md:w-4/5 lg:w-full py-6">
                 <div>
                   <img
                     className="mx-auto rounded-xl mr-4 mt-4 lg:mt-0"
@@ -81,22 +85,30 @@ const BookDetailsCard: React.FC = () => {
                   Publication Date:{" "}
                   {makeReadableDateTime(data?.data.publicationDate)}
                 </p>
-                <div className="flex justify-center items-center gap-4 pt-4 lg:pt-0 lg:h-96">
-                  <button
-                    onClick={() => handleBookUpdate(data?.data._id)}
-                    className="px-4 py-2 rounded-xl text-white bg-teal-600 active:scale-95 duration-200"
-                  >
-                    Edit Book
-                  </button>
-                  <button
-                    onClick={() => handleDeleteBook(data?.data._id)}
-                    className="px-4 py-2 rounded-xl text-white bg-red-600 active:scale-95 duration-200"
-                  >
-                    Delete Book
-                  </button>
-                </div>
+
+                {isAuthenticated && (
+                  <>
+                    {data?.data?.user === auth?.userId &&
+                      data?.data.role === "owner" && (
+                        <div className="flex justify-center items-center gap-4 pt-4 lg:pt-0 lg:h-96">
+                          <button
+                            onClick={() => handleBookUpdate(data?.data._id)}
+                            className="px-4 py-2 rounded-xl text-white bg-teal-600 active:scale-95 duration-200"
+                          >
+                            Edit Book
+                          </button>
+                          <button
+                            onClick={() => handleDeleteBook(data?.data._id)}
+                            className="px-4 py-2 rounded-xl text-white bg-red-600 active:scale-95 duration-200"
+                          >
+                            Delete Book
+                          </button>
+                        </div>
+                      )}
+                  </>
+                )}
               </div>
-            </>
+            </React.Fragment>
           )}
         </div>
       </div>

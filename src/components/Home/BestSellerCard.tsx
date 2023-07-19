@@ -55,9 +55,9 @@ const BestSellerCard: React.FC = () => {
           }}
           className="mySwiper"
         >
-          {images.map((item, i: number) => (
-            <SwiperSlide>
-              <div className="rounded-lg p-6" key={i}>
+          {images.map((item, index: number) => (
+            <SwiperSlide key={index}>
+              <div className="rounded-lg p-6">
                 <img
                   className="w-full object-cover rounded-xl mb-4 "
                   src={item.image}

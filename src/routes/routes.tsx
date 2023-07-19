@@ -4,9 +4,10 @@ import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import AllBooks from "@/pages/AllBooks";
 import BookDetailsCard from "@/pages/BookDetailsCard";
-import SignUpForm from "@/pages/SignUp";
 import AddNewBookPage from "@/pages/AddNewBook";
 import UpdateBookPage from "@/pages/UpdateBook";
+import LoginForm from "@/components/LoginForm/Login";
+import SignUpForm from "@/components/LoginForm/SignUp";
 
 const routes = createBrowserRouter([
   {
@@ -20,19 +21,19 @@ const routes = createBrowserRouter([
       { path: "/all-books", element: <AllBooks /> },
       {
         path: "/book-details/:id",
-        element: <BookDetailsCard/>,
+        element: <BookDetailsCard />,
       },
       {
         path: "/update-book/:id",
-        element: <UpdateBookPage/>,
+        element: <UpdateBookPage />,
       },
       { path: "/addbook", element: <AddNewBookPage /> },
     ],
   },
-  // {
-  //   path: "/login",
-  //   element: <Login />,
-  // },
+  {
+    path: "/login",
+    element: <LoginForm />,
+  },
   {
     path: "/signup",
     element: <SignUpForm />,

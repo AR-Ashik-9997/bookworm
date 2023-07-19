@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import CardBooks from "@/components/Books/CardBooks";
-import AllBookCardSkeliton from "@/components/Loading/AllBookCardSkeliton";
-import { useGetBooksQuery } from "@/redux/feature/books/bookApi";
+import React, { useEffect, useState } from "react";
+import { IBook } from "@/types/globalTypes";
 import {
   setGenre,
   setpublicationYear,
   setsearchTerm,
 } from "@/redux/feature/books/bookSlice";
+import { useGetBooksQuery } from "@/redux/feature/books/bookApi";
+import CardBooks from "@/components/Books/CardBooks";
+import AllBookCardSkeliton from "@/components/Loading/AllBookCardSkeliton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
-import { IBook } from "@/types/globalTypes";
-import React, { useEffect, useState } from "react";
 
 const AllBooks: React.FC = () => {
   const { genre, publicationYear, searchTerm } = useAppSelector(
     (state) => state.book
   );
-  const { data, isLoading } = useGetBooksQuery(searchTerm, {
+  const { data } = useGetBooksQuery(searchTerm, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 1000,
   });
@@ -56,9 +56,8 @@ const AllBooks: React.FC = () => {
   const filteredBooks: IBook[] =
     data?.data?.filter(
       (book: IBook) =>
-        genre === "" ||
         publicationYear === "" ||
-        book.publicationYear === publicationYear
+        (book.publicationYear === publicationYear && book.genre === genre)
     ) || [];
 
   useEffect(() => {
@@ -119,15 +118,13 @@ const AllBooks: React.FC = () => {
             <div className="col-span-3 w-full mt-6 lg:mt-0">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 p-4">
                 {filteredBooks.map((book: IBook) => (
-                  <>
+                  <React.Fragment key={book._id}>
                     {showSkeleton ? (
                       <AllBookCardSkeliton cards={filteredBooks.length} />
                     ) : (
                       <CardBooks book={book} />
                     )}
-
-                    <CardBooks book={book} />
-                  </>
+                  </React.Fragment>
                 ))}
               </div>
             </div>

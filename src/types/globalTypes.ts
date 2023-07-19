@@ -6,6 +6,7 @@ export interface IBook {
   publicationDate: string;
   publicationYear: string;
   user: string;
+  role: string;
 }
 export type BookFormData = {
   title: string;
@@ -37,3 +38,7 @@ export type FormData = {
   password: string;
   confirm_password: string;
 };
+
+export type getEmail={
+  data:object;
+}

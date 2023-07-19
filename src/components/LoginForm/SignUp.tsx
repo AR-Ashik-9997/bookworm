@@ -8,13 +8,13 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import signup from "../assets/images/signup.png";
+import signup from "../../assets/images/signup.png";
 import { FormData } from "@/types/globalTypes";
 import { useCreateUserMutation } from "@/redux/feature/users/userApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpForm: React.FC = () => {
   const {
@@ -48,7 +48,7 @@ const SignUpForm: React.FC = () => {
           "success"
         ).then(() => {
           reset();
-          navigate("#");
+          navigate("/login");
         });
       }
     });
@@ -152,12 +152,22 @@ const SignUpForm: React.FC = () => {
                 <div>
                   <button
                     type="submit"
-                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-xl shadow-sm text-xl font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500"
+                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-xl shadow-sm text-xl font-medium text-white bg-teal-600 hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 active:scale-95 duration-200"
                   >
                     Register
                   </button>
                 </div>
               </form>
+              <div className="flex flex-col items-center justify-center mt-6">
+                <hr className="w-3/4 border-1 border-black" />
+                <div className="mt-4">
+                  <Link to={"/login"}>
+                    <h2 className="w-full flex justify-center shadow-sm text-xl font-medium text-teal-700">
+                      Login
+                    </h2>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>

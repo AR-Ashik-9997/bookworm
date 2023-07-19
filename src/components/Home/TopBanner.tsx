@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const TopBanner: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <>
+    <React.Fragment>
       <section className="bg-[#EFF0ED]">
         <div className="container mx-auto px-4 max-w-[90%] py-24">
           <div className="grid grid-cols-1 md:grid-cols-2">
@@ -41,7 +41,7 @@ const TopBanner: React.FC = () => {
           </div>
         </div>
       </section>
-    </>
+    </React.Fragment>
   );
 };
 

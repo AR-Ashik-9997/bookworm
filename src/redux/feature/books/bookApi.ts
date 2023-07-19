@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { api } from "@/redux/api/apiSlice";
 import { IBook } from "@/types/globalTypes";
 
@@ -11,15 +12,15 @@ const bookApi = api.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["books"],
+      invalidatesTags: ["All"],
     }),
     getBooks: builder.query({
       query: (searchTerm) => `/books/?searchTerm=${searchTerm}`,
-      providesTags: ["books"],
+      providesTags: ["All"],
     }),
     singleBook: builder.query({
       query: (id) => `/books/${id}`,
-      providesTags: ["books"],
+      providesTags: ["All"],
     }),
     updateBook: builder.mutation<IBook, Partial<IBook>>({
       query: ({ _id, ...data }) => ({
@@ -33,7 +34,7 @@ const bookApi = api.injectEndpoints({
         url: `/books/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["books"],
+      invalidatesTags: ["All"],
     }),
 
     // getComment: builder.query({
