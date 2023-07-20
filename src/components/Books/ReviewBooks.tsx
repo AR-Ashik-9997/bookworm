@@ -14,15 +14,14 @@ import { IReviewProps, Review } from "@/types/globalTypes";
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
 import FancyLoadingSpinner from "../Loading/LodingSpinner";
+import Cookies from "js-cookie";
 
 export default function ReviewBooks({ id }: IReviewProps) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [inputValue, setInputValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const reviewBoxRef = useRef<HTMLDivElement>(null);
-  const auth: object | null = JSON.parse(
-    localStorage.getItem("authBookworm") || "null"
-  );
+  const auth: string | undefined = Cookies.get("userId");
   const isAuthenticated = useCheckAuth(auth);
   const { data } = useGetReviewBookQuery(id, {
     refetchOnMountOrArgChange: true,

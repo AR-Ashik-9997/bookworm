@@ -40,7 +40,7 @@ const UpdateBookPage: React.FC = () => {
             "This book is successfully updated!",
             "You clicked the button!",
             "success"
-          ).then(() => navigate("/all-books"));
+          ).then(() => navigate(`/book-details/${id}`));
         });
     } catch (error) {
       console.error("Error updating book:", error);
