@@ -17,14 +17,18 @@ import "react-loading-skeleton/dist/skeleton.css";
 import CardDetailsSkeliton from "@/components/Loading/CardDetailsSkeliton";
 import { useCheckAuth } from "@/redux/feature/users/userSlice";
 import ReviewBooks from "@/components/Books/ReviewBooks";
+import Cookies from "js-cookie";
 
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data } = useSingleBookQuery(id, { refetchOnMountOrArgChange: true,pollingInterval:1000 });
+  const { data } = useSingleBookQuery(id, {
+    refetchOnMountOrArgChange: true,
+    pollingInterval: 1000,
+  });
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [deleteBook] = useDeleteBookMutation();
-  const auth = JSON.parse(localStorage.getItem("authBookworm") || "null");
+  const auth: string | undefined = Cookies.get("userId");
   const isAuthenticated = useCheckAuth(auth);
   const handleBookUpdate = (id: string) => {
     navigate(`/update-book/${id}`);
@@ -98,7 +102,7 @@ const BookDetailsCard: React.FC = () => {
                         >
                           Edit Book
                         </button>
-                        {data?.data.user === auth?.userId &&
+                        {data?.data.user === auth &&
                           data?.data.role === "owner" && (
                             <button
                               onClick={() => handleDeleteBook(data?.data._id)}

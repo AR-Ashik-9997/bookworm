@@ -10,12 +10,11 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import signup from "../../assets/images/signup.png";
 import { FormData } from "@/types/globalTypes";
-import { useCreateUserMutation } from "@/redux/feature/users/userApi";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { SerializedError } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/bookWorm.png";
+import { useAppSelector } from "@/redux/hooks/hooks";
+import axios from "axios";
 
 const SignUpForm: React.FC = () => {
   const {
@@ -26,33 +25,34 @@ const SignUpForm: React.FC = () => {
     getValues,
   } = useForm<FormData>();
   const [error, setError] = useState<string>();
-  const [createUser] = useCreateUserMutation();
+  const { url } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { username, email, password } = data;
-    const options = {
-      data: {
-        username: username,
-        email: email,
-        password: password,
-        role: "user",
-      },
-    };
-    createUser(options).then((res) => {
-      if ("error" in res) {
-        const error = res.error as FetchBaseQueryError | SerializedError;
-        setError(error.data.message);
-      } else {
-        Swal.fire(
-          `${res.data.message}`,
-          "You clicked the button!",
-          "success"
-        ).then(() => {
-          reset();
-          navigate("/login");
-        });
-      }
-    });
+    await axios
+      .post(`${url}/signup`, {
+        username,
+        email,
+        password,
+      })
+      .then((res) => {
+        if (res?.data?.data) {
+          Swal.fire(
+            `${res.data.message}`,
+            "You clicked the button!",
+            "success"
+          ).then(() => {
+            setError("");
+            reset();
+            navigate("/login");
+          });
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          setError(error?.response?.data?.message);
+        }
+      });
   };
 
   return (

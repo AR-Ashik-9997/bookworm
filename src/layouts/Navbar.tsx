@@ -3,18 +3,19 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/images/bookWorm.png";
 import { useCheckAuth } from "@/redux/feature/users/userSlice";
+import Cookies from "js-cookie";
+
 const Navbar: React.FC = () => {
   const [ixsenuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const toggleMenu = () => {
     setMenuOpen(!ixsenuOpen);
   };
-  const auth: object | null = JSON.parse(
-    localStorage.getItem("authBookworm") || "null"
-  );
+  const auth: string | undefined = Cookies.get("userId");
   const isAuthenticated = useCheckAuth(auth);
   const handleLogOut = () => {
-    localStorage.removeItem("authBookworm");
+    Cookies.remove("userId");
+    Cookies.remove("accessToken");
     navigate("/");
   };
   return (

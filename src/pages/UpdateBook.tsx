@@ -35,7 +35,7 @@ const UpdateBookPage: React.FC = () => {
         ...bookData,
       })
         .unwrap()
-        .then((res) => {
+        .then(() => {
           Swal.fire(
             "This book is successfully updated!",
             "You clicked the button!",

@@ -14,7 +14,7 @@ import dummy_book from "../assets/images/dummy_books.png";
 import "react-loading-skeleton/dist/skeleton.css";
 import CardDetailsSkeliton from "@/components/Loading/CardDetailsSkeliton";
 import { SubmitHandler, useForm } from "react-hook-form";
-
+import Cookies from "js-cookie";
 const AddNewBookPage: React.FC = () => {
   const {
     register,
@@ -25,7 +25,7 @@ const AddNewBookPage: React.FC = () => {
   const [postBook] = usePostBooksMutation();
   const navigate = useNavigate();
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
-  const auth=JSON.parse(localStorage.getItem('auth')||"null");
+  const userId = Cookies.get("userId");
   const onSubmit: SubmitHandler<BookFormData> = (data) => {
     const { title, author, genre, publicationDate } = data;
     const options = {
@@ -35,7 +35,7 @@ const AddNewBookPage: React.FC = () => {
         genre: genre,
         publicationDate: publicationDate,
         publicationYear: new Date(publicationDate).getFullYear().toString(),
-        user: auth?.userId,
+        user: userId,
       },
     };
     postBook(options).then(() => {

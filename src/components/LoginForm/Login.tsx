@@ -10,12 +10,11 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import signin from "../../assets/images/signup.png";
 import { FormData } from "@/types/globalTypes";
-import { useLoginUserMutation } from "@/redux/feature/users/userApi";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
-import { SerializedError } from "@reduxjs/toolkit";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/bookWorm.png";
-
+import axios from "axios";
+import Cookies from "js-cookie";
+import { useAppSelector } from "@/redux/hooks/hooks";
 const LoginForm: React.FC = () => {
   const {
     register,
@@ -23,28 +22,33 @@ const LoginForm: React.FC = () => {
     formState: { errors },
     reset,
   } = useForm<FormData>();
-  const [loginUser] = useLoginUserMutation();
   const [error, setError] = useState<string>();
+  const { url } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
-  const onSubmit: SubmitHandler<FormData> = (data) => {
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { email, password } = data;
-    const options = {
-      data: {
-        email: email,
-        password: password,
-      },
-    };
-    loginUser(options).then((res) => {
-      if (res?.data?.success) {
-        localStorage.setItem("authBookworm", JSON.stringify(res?.data?.data));
-        navigate("/");
-        reset();
-      } else {
-        const error = res?.error as FetchBaseQueryError | SerializedError;
-        setError(error.data?.message);
-      }
-    });
+    await axios
+      .post(`${url}/login`, {
+        email,
+        password,
+      })
+      .then((res) => {
+        if (res?.data?.data) {
+          const accessToken = res.data?.data?.accessToken;
+          const userId = res.data?.data?.userId;
+          Cookies.set("accessToken", accessToken);
+          Cookies.set("userId", userId);
+          reset();
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        if (error) {
+          setError(error?.response?.data?.message);
+        }
+      });
   };
+
   return (
     <section>
       <nav className="bg-[#eff0ed]">
