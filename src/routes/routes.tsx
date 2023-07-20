@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "@/App";
-import NotFound from "@/pages/NotFound";
 import Home from "@/pages/Home";
 import AllBooks from "@/pages/AllBooks";
 import BookDetailsCard from "@/pages/BookDetailsCard";
@@ -9,6 +8,7 @@ import UpdateBookPage from "@/pages/UpdateBook";
 import LoginForm from "@/components/LoginForm/Login";
 import SignUpForm from "@/components/LoginForm/SignUp";
 import PrivateRoute from "./privateRoute";
+import NotFoundPage from "@/pages/NotFound";
 
 const routes = createBrowserRouter([
   {
@@ -52,7 +52,7 @@ const routes = createBrowserRouter([
   },
   {
     path: "*",
-    element: <NotFound />,
+    element: <NotFoundPage />,
   },
 ]);
 

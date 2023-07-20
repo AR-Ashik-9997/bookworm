@@ -29,7 +29,7 @@ export const useLogoutAndRedirect = (
   useEffect(() => {
     const handleLogoutAndRedirect = () => {
       logoutCallback();
-      localStorage.removeItem("auth");
+      localStorage.removeItem("authBookworm");
       navigate(homePagePath);
     };
 

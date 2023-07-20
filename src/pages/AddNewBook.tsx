@@ -155,7 +155,7 @@ const AddNewBookPage: React.FC = () => {
                       Publication Date
                     </label>
                     <input
-                      type="date"
+                      type="month"
                       id="publicationDate"
                       className={`rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border ${
                         errors.publicationDate && "input-error"

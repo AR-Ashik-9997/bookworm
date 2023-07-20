@@ -17,7 +17,7 @@ import CardDetailsSkeliton from "@/components/Loading/CardDetailsSkeliton";
 const UpdateBookPage: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data } = useSingleBookQuery(id);
+  const { data } = useSingleBookQuery(id,{refetchOnMountOrArgChange:true,pollingInterval:1000});
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [bookData, setBookData] = useState<Partial<IBook>>({
     title: data?.data.title,
@@ -141,7 +141,7 @@ const UpdateBookPage: React.FC = () => {
                       Publication Date
                     </label>
                     <input
-                      type="date"
+                      type="month"
                       id="publicationDate"
                       className="rounded-xl p-2 border-t mr-0 mb-2 sm:mr-2 sm:mb-0 sm:border-b sm:border-l text-gray-800 border-yellow-700 bg-white w-full focus:outline-none focus:border-yellow-700 focus:ring-0 border"
                       value={

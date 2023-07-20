@@ -10,11 +10,11 @@ const Navbar: React.FC = () => {
     setMenuOpen(!ixsenuOpen);
   };
   const auth: object | null = JSON.parse(
-    localStorage.getItem("auth") || "null"
+    localStorage.getItem("authBookworm") || "null"
   );
   const isAuthenticated = useCheckAuth(auth);
   const handleLogOut = () => {
-    localStorage.removeItem("auth");
+    localStorage.removeItem("authBookworm");
     navigate("/");
   };
   return (

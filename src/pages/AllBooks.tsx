@@ -71,7 +71,7 @@ const AllBooks: React.FC = () => {
       <div className="container mx-auto px-4 max-w-[90%]">
         <div className="grid grid-cols-1 lg:grid-cols-4 lg:gap-4">
           <div className="w-full">
-            <div className="bg-white rounded-xl shadow-xl w-full h-auto py-4">
+            <div className="bg-white rounded-xl shadow-xl w-full h-auto py-4 sticky top-10">
               <div className="flex items-center lg:flex-col xl:flex-row gap-2 p-4">
                 <input
                   id="searchInput"

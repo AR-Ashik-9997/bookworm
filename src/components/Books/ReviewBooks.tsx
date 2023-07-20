@@ -24,7 +24,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
   const [image, setImage] = useState<string>("");
   const reviewBoxRef = useRef<HTMLDivElement>(null);
   const auth: object | null = JSON.parse(
-    localStorage.getItem("auth") || "null"
+    localStorage.getItem("authBookworm") || "null"
   );
   const isAuthenticated = useCheckAuth(auth);
   const { data } = useGetReviewBookQuery(id, {
@@ -71,7 +71,9 @@ export default function ReviewBooks({ id }: IReviewProps) {
       <h2 className="text-2xl font-semibold mb-4">Customer Review</h2>
       <div
         ref={reviewBoxRef}
-        className={`flex flex-col-reverse space-y-4 ${!isAuthenticated ? 'h-96' : 'h-72'} overflow-auto`}
+        className={`flex flex-col-reverse space-y-4 ${
+          !isAuthenticated ? "h-96" : "h-72"
+        } overflow-auto`}
       >
         {reviews
           .slice()

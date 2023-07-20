@@ -19,8 +19,7 @@ export type BookFormData = {
 export const makeReadableDateTime = (date: string): string => {
   const readableTime = new Date(date).toLocaleString("en-UK", {
     year: "numeric",
-    month: "long",
-    day: "numeric",
+    month: "long",   
   });
   return readableTime;
 };

@@ -10,7 +10,7 @@ interface IProps {
 export default function PrivateRoute({ children }: IProps) {
   const { pathname } = useLocation();
   const auth: object | null = JSON.parse(
-    localStorage.getItem("auth") || "null"
+    localStorage.getItem("authBookworm") || "null"
   );
   const isAuthenticated = useCheckAuth(auth);
   if (!isAuthenticated) {

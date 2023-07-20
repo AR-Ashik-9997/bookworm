@@ -35,7 +35,7 @@ const LoginForm: React.FC = () => {
     };
     loginUser(options).then((res) => {
       if (res?.data?.success) {
-        localStorage.setItem("auth", JSON.stringify(res?.data?.data));
+        localStorage.setItem("authBookworm", JSON.stringify(res?.data?.data));
         navigate("/");
         reset();
       } else {

@@ -21,10 +21,10 @@ import ReviewBooks from "@/components/Books/ReviewBooks";
 const BookDetailsCard: React.FC = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data } = useSingleBookQuery(id, { refetchOnMountOrArgChange: true });
+  const { data } = useSingleBookQuery(id, { refetchOnMountOrArgChange: true,pollingInterval:1000 });
   const [showSkeleton, setShowSkeleton] = useState<boolean>(true);
   const [deleteBook] = useDeleteBookMutation();
-  const auth = JSON.parse(localStorage.getItem("auth") || "null");
+  const auth = JSON.parse(localStorage.getItem("authBookworm") || "null");
   const isAuthenticated = useCheckAuth(auth);
   const handleBookUpdate = (id: string) => {
     navigate(`/update-book/${id}`);
