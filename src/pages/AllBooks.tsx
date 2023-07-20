@@ -54,9 +54,7 @@ const AllBooks: React.FC = () => {
   const filteredBooks: IBook[] =
     data?.data?.filter(
       (book: IBook) =>
-        genre === "" ||
-        (book.genre === genre && publicationYear === "") ||
-        book.publicationYear === publicationYear
+        publicationYear === "" || book.publicationYear === publicationYear
     ) || [];
 
   useEffect(() => {
