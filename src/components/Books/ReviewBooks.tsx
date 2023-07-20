@@ -10,14 +10,10 @@ import {
   usePostReviewMutation,
 } from "@/redux/feature/books/bookApi";
 import { useCheckAuth } from "@/redux/feature/users/userSlice";
-import { IReviewProps } from "@/types/globalTypes";
+import { IReviewProps, Review } from "@/types/globalTypes";
 import React, { useState, useRef, useEffect } from "react";
 import Swal from "sweetalert2";
-
-interface Review {
-  inputValue: string;
-  image: string;
-}
+import FancyLoadingSpinner from "../Loading/LodingSpinner";
 
 export default function ReviewBooks({ id }: IReviewProps) {
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -33,7 +29,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
     pollingInterval: 1000,
   });
   const [postReview] = usePostReviewMutation();
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const options = {
@@ -53,7 +49,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
       Swal.fire({
         icon: "error",
         title: "you are not authenticated",
-        text: "Please login",        
+        text: "Please login",
       });
     }
   };
@@ -75,31 +71,43 @@ export default function ReviewBooks({ id }: IReviewProps) {
     }
   }, [data?.data?.reviews]);
 
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
   return (
     <div className="w-full lg:max-w-md p-8 bg-white rounded-xl shadow-lg">
       <h2 className="text-2xl font-semibold mb-4">Customer Review</h2>
-      <div
-        ref={reviewBoxRef}
-        className={`flex flex-col-reverse space-y-4 ${
-          !isAuthenticated ? "h-96" : "h-72"
-        } overflow-auto`}
-      >
-        {reviews
-          .slice()
-          .reverse()
-          .map((review, index) => (
-            <div key={index} className="p-2">
-              <div className="flex items-center space-x-2">
-                <img
-                  src={review.image}
-                  alt=""
-                  className="w-12 h-12 rounded-full"
-                />
-                <span>{review.inputValue}</span>
+
+      {isLoading ? (
+        <div>
+          <FancyLoadingSpinner />
+        </div>
+      ) : (
+        <div
+          ref={reviewBoxRef}
+          className={`flex flex-col-reverse space-y-4 ${
+            !isAuthenticated ? "h-96" : "h-72"
+          } overflow-auto`}
+        >
+          {reviews
+            .slice()
+            .reverse()
+            .map((review, index) => (
+              <div key={index} className="p-2">
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={review.image}
+                    alt=""
+                    className="w-12 h-12 rounded-full"
+                  />
+                  <span>{review.inputValue}</span>
+                </div>
               </div>
-            </div>
-          ))}
-      </div>
+            ))}
+        </div>
+      )}
 
       <form className="mt-4 flex relative" onSubmit={handleFormSubmit}>
         <input
@@ -107,7 +115,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           className="flex-grow rounded-xl px-3 py-2 border-yellow-700 bg-white focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-          placeholder="Your Name"
+          placeholder="send your review here"
         />
         <button
           type="submit"

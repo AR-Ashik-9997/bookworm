@@ -12,6 +12,7 @@ import { useGetBooksQuery } from "@/redux/feature/books/bookApi";
 import CardBooks from "@/components/Books/CardBooks";
 import AllBookCardSkeliton from "@/components/Loading/AllBookCardSkeliton";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks/hooks";
+import FancyLoadingSpinner from "@/components/Loading/LodingSpinner";
 
 const AllBooks: React.FC = () => {
   const { genre, publicationYear, searchTerm } = useAppSelector(
@@ -22,6 +23,7 @@ const AllBooks: React.FC = () => {
     pollingInterval: 1000,
   });
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const search = event.target.value;
     dispatch(setGenre(""));
@@ -66,6 +68,12 @@ const AllBooks: React.FC = () => {
       clearTimeout(timer);
     };
   }, [filteredBooks.length]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); 
+  }, []);
   return (
     <section className="min-h-screen py-16">
       <div className="container mx-auto px-4 max-w-[90%]">
@@ -126,13 +134,23 @@ const AllBooks: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="col-span-3 w-full mt-6 lg:mt-0 ">
-              <div className="flex items-center justify-center h-96">
-                <h1 className="text-center font-semibold text-3xl">
-                  Data Not Found!
-                </h1>
-              </div>
-            </div>
+            <React.Fragment>
+              {isLoading ? (
+                <div className="col-span-3 w-full mt-6 lg:mt-0 ">
+                  <FancyLoadingSpinner />
+                </div>
+              ) : (
+                <React.Fragment>
+                  <div className="col-span-3 w-full mt-6 lg:mt-0 ">
+                    <div className="flex items-center justify-center h-96">
+                      <h1 className="text-center font-semibold text-3xl">
+                        Data Not Found!
+                      </h1>
+                    </div>
+                  </div>
+                </React.Fragment>
+              )}
+            </React.Fragment>
           )}
         </div>
       </div>

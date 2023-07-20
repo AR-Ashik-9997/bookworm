@@ -48,3 +48,8 @@ export type getEmail = {
 export interface Auth {
   accessToken: string;
 }
+
+export interface Review {
+  inputValue: string;
+  image: string;
+}
