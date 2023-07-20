@@ -12,6 +12,7 @@ import {
 import { useCheckAuth } from "@/redux/feature/users/userSlice";
 import { IReviewProps } from "@/types/globalTypes";
 import React, { useState, useRef, useEffect } from "react";
+import Swal from "sweetalert2";
 
 interface Review {
   inputValue: string;
@@ -41,11 +42,19 @@ export default function ReviewBooks({ id }: IReviewProps) {
         reviews: inputValue,
       },
     };
-    postReview(options);
-    if (inputValue.trim() !== "") {
-      setReviews([...reviews, { inputValue, image }]);
-      setInputValue("");
-      setImage("");
+    if (isAuthenticated) {
+      postReview(options);
+      if (inputValue.trim() !== "") {
+        setReviews([...reviews, { inputValue, image }]);
+        setInputValue("");
+        setImage("");
+      }
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "you are not authenticated",
+        text: "Please login",        
+      });
     }
   };
 
@@ -91,23 +100,22 @@ export default function ReviewBooks({ id }: IReviewProps) {
             </div>
           ))}
       </div>
-      {isAuthenticated && (
-        <form className="mt-4 flex relative" onSubmit={handleFormSubmit}>
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            className="flex-grow rounded-xl px-3 py-2 border-yellow-700 bg-white focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-            placeholder="Your Name"
-          />
-          <button
-            type="submit"
-            className="ml-2 bg-indigo-600 text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition"
-          >
-            Add Review
-          </button>
-        </form>
-      )}
+
+      <form className="mt-4 flex relative" onSubmit={handleFormSubmit}>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          className="flex-grow rounded-xl px-3 py-2 border-yellow-700 bg-white focus:outline-none focus:border-yellow-700 focus:ring-0 border"
+          placeholder="Your Name"
+        />
+        <button
+          type="submit"
+          className="ml-2 bg-indigo-600 text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition"
+        >
+          Add Review
+        </button>
+      </form>
     </div>
   );
 }

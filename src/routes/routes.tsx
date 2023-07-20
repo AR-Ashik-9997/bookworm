@@ -43,13 +43,14 @@ const routes = createBrowserRouter([
     ],
   },
   {
-    path: "/login",
-    element: <LoginForm />,
-  },
-  {
     path: "/signup",
     element: <SignUpForm />,
   },
+  {
+    path: "/login",
+    element: <LoginForm />,
+  },
+
   {
     path: "*",
     element: <NotFoundPage />,

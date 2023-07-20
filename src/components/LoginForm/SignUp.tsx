@@ -15,6 +15,7 @@ import { FetchBaseQueryError } from "@reduxjs/toolkit/dist/query";
 import { SerializedError } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/images/bookWorm.png";
 
 const SignUpForm: React.FC = () => {
   const {
@@ -56,11 +57,22 @@ const SignUpForm: React.FC = () => {
 
   return (
     <section>
+      <nav className="bg-[#eff0ed]">
+        <div className="container mx-auto px-4 max-w-[90%]">
+          <div className="flex items-center justify-between py-2">
+            <div className="flex items-center">
+              <Link to="/" className="text-white font-bold text-xl">
+                <img className="h-10 md:h-16" src={logo} alt="logo" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </nav>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
         <div className="flex items-center justify-center">
           <img className=" w-full p-4" src={signup} alt="Card" />
         </div>
-        <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:px-6 lg:px-8 p-4">
+        <div className="min-h-screen bg-gradient-to-r from-[#00bcd4] to-indigo-500 flex flex-col justify-center sm:px-6 lg:px-8 p-4">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
             <h2 className="mt-6 text-center text-3xl font-semibold text-gray-900">
               Sign Up

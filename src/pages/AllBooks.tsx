@@ -99,6 +99,7 @@ const AllBooks: React.FC = () => {
                   className="block mb-4 border-yellow-700 focus:outline-none focus:border-yellow-700 focus:ring-0 border rounded-xl p-2"
                   value={publicationYear}
                   onChange={handleYearChange}
+                  disabled={!genre}
                 >
                   <option value="">Filter by all Years</option>
                   {publicationYears.map((year) => (

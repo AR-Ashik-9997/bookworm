@@ -6,7 +6,7 @@ const auth:Auth|null =JSON.parse(localStorage.getItem('auth')||"null");
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/api/v1",
+    baseUrl: "https://bookworm-server-production.up.railway.app/api/v1",
     prepareHeaders: (headers) => {
       headers.set("Authorization", `Bearer ${auth?.accessToken}`); 
       headers.set("Content-Type", "application/json");
