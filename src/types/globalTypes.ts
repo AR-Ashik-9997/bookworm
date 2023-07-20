@@ -42,6 +42,10 @@ export type FormData = {
   confirm_password: string;
 };
 
-export type getEmail={
-  data:object;
+export type getEmail = {
+  data: object;
+};
+
+export interface Auth {
+  accessToken: string;
 }

@@ -9,7 +9,8 @@ import {
   useGetReviewBookQuery,
   usePostReviewMutation,
 } from "@/redux/feature/books/bookApi";
-import {IReviewProps } from "@/types/globalTypes";
+import { useCheckAuth } from "@/redux/feature/users/userSlice";
+import { IReviewProps } from "@/types/globalTypes";
 import React, { useState, useRef, useEffect } from "react";
 
 interface Review {
@@ -22,6 +23,10 @@ export default function ReviewBooks({ id }: IReviewProps) {
   const [inputValue, setInputValue] = useState<string>("");
   const [image, setImage] = useState<string>("");
   const reviewBoxRef = useRef<HTMLDivElement>(null);
+  const auth: object | null = JSON.parse(
+    localStorage.getItem("auth") || "null"
+  );
+  const isAuthenticated = useCheckAuth(auth);
   const { data } = useGetReviewBookQuery(id, {
     refetchOnMountOrArgChange: true,
     pollingInterval: 1000,
@@ -50,7 +55,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
     }
   }, [reviews]);
 
-  useEffect(() => {    
+  useEffect(() => {
     if (data?.data?.reviews) {
       setReviews(
         data.data.reviews.map((review: string) => ({
@@ -66,7 +71,7 @@ export default function ReviewBooks({ id }: IReviewProps) {
       <h2 className="text-2xl font-semibold mb-4">Customer Review</h2>
       <div
         ref={reviewBoxRef}
-        className="flex flex-col-reverse space-y-4 h-72 overflow-auto"
+        className={`flex flex-col-reverse space-y-4 ${!isAuthenticated ? 'h-96' : 'h-72'} overflow-auto`}
       >
         {reviews
           .slice()
@@ -84,21 +89,23 @@ export default function ReviewBooks({ id }: IReviewProps) {
             </div>
           ))}
       </div>
-      <form className="mt-4 flex relative" onSubmit={handleFormSubmit}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          className="flex-grow rounded-xl px-3 py-2 border-yellow-700 bg-white focus:outline-none focus:border-yellow-700 focus:ring-0 border"
-          placeholder="Your Name"
-        />
-        <button
-          type="submit"
-          className="ml-2 bg-indigo-600 text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition"
-        >
-          Add Review
-        </button>
-      </form>
+      {isAuthenticated && (
+        <form className="mt-4 flex relative" onSubmit={handleFormSubmit}>
+          <input
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            className="flex-grow rounded-xl px-3 py-2 border-yellow-700 bg-white focus:outline-none focus:border-yellow-700 focus:ring-0 border"
+            placeholder="Your Name"
+          />
+          <button
+            type="submit"
+            className="ml-2 bg-indigo-600 text-white py-2 px-4 rounded-xl hover:bg-indigo-700 transition"
+          >
+            Add Review
+          </button>
+        </form>
+      )}
     </div>
   );
 }

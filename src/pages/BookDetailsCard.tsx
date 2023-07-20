@@ -91,23 +91,23 @@ const BookDetailsCard: React.FC = () => {
 
                   {isAuthenticated && (
                     <React.Fragment>
-                      {data?.data?.user === auth?.userId &&
-                        data?.data.role === "owner" && (
-                          <div className="flex md:justify-start lg:justify-center xl:justify-start justify-center flex-wrap items-center gap-4 lg:gap-0 xl:gap-4  pt-4 lg:pt-0 h-32">
-                            <button
-                              onClick={() => handleBookUpdate(data?.data._id)}
-                              className="px-4 lg:px-8 xl:px-4 py-2 w-auto rounded-xl text-white bg-teal-600 active:scale-95 duration-200"
-                            >
-                              Edit Book
-                            </button>
+                      <div className="flex md:justify-start lg:justify-center xl:justify-start justify-center flex-wrap items-center gap-4 lg:gap-0 xl:gap-4  pt-4 lg:pt-0 h-32">
+                        <button
+                          onClick={() => handleBookUpdate(data?.data._id)}
+                          className="px-4 lg:px-8 xl:px-4 py-2 w-auto rounded-xl text-white bg-teal-600 active:scale-95 duration-200"
+                        >
+                          Edit Book
+                        </button>
+                        {data?.data.user === auth?.userId &&
+                          data?.data.role === "owner" && (
                             <button
                               onClick={() => handleDeleteBook(data?.data._id)}
                               className="px-4 lg:px-8 xl:px-4 py-2 rounded-xl text-white bg-red-600 active:scale-95 duration-200"
                             >
                               Delete Book
                             </button>
-                          </div>
-                        )}
+                          )}
+                      </div>
                     </React.Fragment>
                   )}
                 </div>

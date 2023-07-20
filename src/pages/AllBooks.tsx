@@ -45,9 +45,7 @@ const AllBooks: React.FC = () => {
   ];
   const publicationYears: string[] = [
     ...new Set(
-      data?.data
-        ?.filter((book: IBook) => book.genre === genre)
-        .map((book: IBook) => book.publicationYear) as string[]
+      data?.data.map((book: IBook) => book.publicationYear) as string[]
     ),
   ];
   if (genre === "") {
@@ -56,8 +54,9 @@ const AllBooks: React.FC = () => {
   const filteredBooks: IBook[] =
     data?.data?.filter(
       (book: IBook) =>
-        publicationYear === "" ||
-        (book.publicationYear === publicationYear && book.genre === genre)
+        genre === "" ||
+        (book.genre === genre && publicationYear === "") ||
+        book.publicationYear === publicationYear
     ) || [];
 
   useEffect(() => {
@@ -102,7 +101,6 @@ const AllBooks: React.FC = () => {
                   className="block mb-4 border-yellow-700 focus:outline-none focus:border-yellow-700 focus:ring-0 border rounded-xl p-2"
                   value={publicationYear}
                   onChange={handleYearChange}
-                  disabled={!genre}
                 >
                   <option value="">Filter by all Years</option>
                   {publicationYears.map((year) => (
