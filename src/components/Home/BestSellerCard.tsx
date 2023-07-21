@@ -7,19 +7,24 @@ import book_2 from "../../assets/images/book_2.png";
 import firstbook from "../../assets/images/firstbook.png";
 import lastbook from "../../assets/images/lastbook.png";
 import thirdbook from "../../assets/images/thirdbook.png";
+import { Link } from "react-router-dom";
 
 const images = [
   {
     image: book_2,
+    id: "64bad0fdc666b52814d889c1",
   },
   {
     image: firstbook,
+    id: "64bad0fdc666b52814d889c2",
   },
   {
     image: lastbook,
+    id: "64bad0fdc666b52814d889c3",
   },
   {
     image: thirdbook,
+    id: "64bad0fdc666b52814d889c4",
   },
 ];
 const BestSellerCard: React.FC = () => {
@@ -57,13 +62,15 @@ const BestSellerCard: React.FC = () => {
         >
           {images.map((item, index: number) => (
             <SwiperSlide key={index}>
-              <div className="rounded-lg p-6">
-                <img
-                  className="w-full object-cover rounded-xl mb-4 "
-                  src={item.image}
-                  alt="Card Image"
-                />
-              </div>
+              <Link to={`/book-details/${item.id}`}>
+                <div className="rounded-lg p-6">
+                  <img
+                    className="w-full object-cover rounded-xl mb-4 "
+                    src={item.image}
+                    alt="Card Image"
+                  />
+                </div>
+              </Link>
             </SwiperSlide>
           ))}
 
